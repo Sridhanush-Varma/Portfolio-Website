@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Resume</title>
+    <style>
+        /* Base styles */
+        :root {
+            --primary-color: #91ad11;
+            --secondary-color: #2c3e50;
+            --padding-standard: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--padding-standard);
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        /* Profile section */
+        .profile-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .profile-picture-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #profile-picture {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-button {
+            display: none;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: rgba(145, 173, 17, 0.9);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background: rgba(41, 128, 185, 1);
+        }
+
+        /* Tabs and Sections */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            flex: 0 1 auto;
+            white-space: nowrap;
+            background-color: #36343491;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-bottom: 2px solid #f8f8f8;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Skills */
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+        }
+
+        /* Education */
+        .education-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            background-color: #f8f9fa;
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateX(10px);
+        }
+
+        .education-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item p {
+            margin: 0.3rem 0;
+            color: #666;
+        }
+
+        /* Admin button */
+        .admin-login-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-login-btn:hover {
+            background-color: #7a9210;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 0.5rem;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .profile-picture-container {
+                width: 120px;
+                height: 120px;
+            }
+
+            .education-item {
+                padding: 1rem;
+            }
+
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.2rem; }
+        }
+
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 100%;
+                padding: 0.3rem;
+            }
+
+            .tabs {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .tab {
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem;
+            }
+
+            .profile-picture-container {
+                width: 100px;
+                height: 100px;
+            }
+
+            .education-item {
+                padding: 0.8rem;
+            }
+
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.3rem; }
+            h3 { font-size: 1.1rem; }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="profile-section">
+            <div class="profile-picture-container">
+                <img id="profile-picture" src="default-avatar.png" alt="Profile Picture">
+                <label for="profile-upload" class="upload-button">
+                    <span>📸</span>
+                </label>
+                <input type="file" id="profile-upload" accept="image/*" style="display: none;">
+            </div>
+        </div>
+        <h1>Sridhanush Varma</h1>
+        <div class="contact-info">
+            <span>📧 sridhanushvarmasv@gmail.com</span>
+            <span>📱 91+ 7799955255</span>
+            <span>📍 Hyderabad, Telangana, India</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="summary">Summary</div>
+            <div class="tab" data-tab="skills">Skills</div>
+            <div class="tab" data-tab="education">Education</div>
+            <div class="tab" data-tab="projects">Projects</div>
+        </div>
+
+        <section class="section" id="summary">
+            <h2>Professional Summary</h2>
+            <p>Computer Vision and Image Processing specialist with expertise in Python programming. Experienced in developing facial recognition systems and implementing various image processing algorithms.</p>
+        </section>
+
+        <section class="section" id="skills">
+            <h2>Technical Skills</h2>
+            <div class="skill-list">
+                <span class="skill-item">Python</span>
+                <span class="skill-item">OpenCV</span>
+                <span class="skill-item">Image Processing</span>
+                <span class="skill-item">Facial Recognition</span>
+                <span class="skill-item">Computer Vision</span>
+                <span class="skill-item">Machine Learning</span>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>Bachelor's Degree in Computer Science</h3>
+                <p>Holy Mary Institute of Technology and Science</p>
+                <p>Graduation Year: 2026</p>
+                <p>CGPA: 7.9/10</p>
+            </div>
+            
+            <div class="education-item">
+                <h3>Intermediate Education (11th & 12th)</h3>
+                <p>Sri Chaitanya Junior College</p>
+                <p>Graduation Year: 2022</p>
+                <p>Percentage: 83%</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Secondary School Education (10th)</h3>
+                <p>Bharathi Vidya Bhavans</p>
+                <p>Graduation Year: 2020</p>
+                <p>CGPA: 9.4/10</p>
+            </div>
+        </section>
+        
+
+        <section class="section" id="projects">
+            <h2>Projects</h2>
+            <div class="project-item">
+                <h3>Image Processing Suite</h3>
+                <ul>
+                    <li>Developed algorithms for image dilation and erosion</li>
+                    <li>Implemented morphological gradient detection</li>
+                    <li>Created facial recognition system with live camera integration</li>
+                </ul>
+            </div>
+        
+            <div class="project-item">
+                <h3>ChatBot using Python</h3>
+                <ul>
+                    <li>Developed a basic chatbot using Python</li>
+                    <li>Impelmented a chatbot using NLTK library</li>
+                    <li>Created a chatbot that can answer questions and help with tasks</li>
+                    <li>Created the chatbot uisng speech technology</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <script src="Website.js"></script>
+</body>
+</html> 
